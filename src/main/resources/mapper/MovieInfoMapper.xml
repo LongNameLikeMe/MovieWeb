@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.web.movie.mapper.MovieInfoMapper">
+
+    <select id="getAllMovies" resultType="com.web.movie.entity.MovieInfo">
+        SELECT *
+        FROM movie_info
+    </select>
+
+    <select id="getMovieById" resultType="com.web.movie.entity.MovieInfo">
+        SELECT *
+        FROM movie_info
+        where id = #{id}
+    </select>
+
+    <select id="getNewMovies" resultType="com.web.movie.entity.MovieInfo">
+        SELECT *
+        FROM movie_info
+        order by year desc
+        limit 6
+    </select>
+
+    <select id="getHighScoreMovies" resultType="com.web.movie.entity.MovieInfo">
+        SELECT *
+        FROM movie_info
+        order by score desc
+        limit 6
+    </select>
+
+    <select id="getMovieByName" resultType="com.web.movie.entity.MovieInfo" parameterType="String">
+        SELECT *
+        FROM movie_info
+        where title like concat('%', #{title}, '%')
+        limit 6
+    </select>
+
+    <select id="getRecommendedMovies" resultType="com.web.movie.entity.MoviePriority">
+        SELECT *
+        FROM movie_priority
+        where user_id = #{id}
+        order by priority desc
+        limit 6
+    </select>
+
+    <insert id="insertMoviePriority" parameterType="com.web.movie.entity.MoviePriority">
+        INSERT INTO movie_priority(movie_id, user_id, priority)
+        VALUES (#{movie_id}, #{user_id}, #{priority})
+    </insert>
+
+</mapper>

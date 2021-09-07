@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.web.movie.mapper.RatingMapper">
+
+    <select id="getRatingCount" resultType="int">
+        SELECT count(comment_id)
+        FROM rating
+    </select>
+
+    <select id="getRatings" resultType="com.web.movie.entity.Rating">
+        SELECT *
+        FROM rating
+    </select>
+
+    <select id="getRatingById" resultType="com.web.movie.entity.Rating">
+        SELECT *
+        FROM rating
+        where comment_id = #{id}
+    </select>
+
+    <insert id="insertComment" parameterType="com.web.movie.entity.Rating">
+        INSERT INTO rating(comment_id, content, time, rating)
+        VALUES (#{comment_id}, #{content}, #{time}, #{rating})
+    </insert>
+
+    <delete id="deleteRatingByCommentId">
+        DELETE
+        FROM rating
+        WHERE comment_id = #{comment_id}
+    </delete>
+
+</mapper>
